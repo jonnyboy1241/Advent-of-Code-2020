@@ -45,3 +45,52 @@ According to the above rules, your improved system would report 2 valid passport
 
 Count the number of valid passports - those that have all required fields. Treat cid as optional. In your batch file, how many passports are valid?
 '''
+
+passports = []
+current_passport = {}
+
+with open('data/day4.txt', 'r') as file:
+    while True:
+        line = file.readline()
+        if not line:
+            passports.append(current_passport)
+            break
+
+        line = line.strip('\n')
+
+        if line == '':
+            passports.append(current_passport)
+            current_passport = {}
+        else:
+            fields = line.split()
+
+            for field in fields:
+                [key, val] = field.split(':')
+                current_passport[key] = val
+
+
+num_valid_passports = 0
+for passport in passports:
+    length = len(passport)
+
+    if not (length == 7 or length == 8):
+        continue
+
+    keys = passport.keys()
+
+    if ('byr' in keys and
+        'iyr' in keys and
+        'eyr' in keys and
+        'hgt' in keys and
+        'hcl' in keys and
+        'ecl' in keys and
+        'pid' in keys
+        ):
+        if len(keys) == 7:
+            num_valid_passports += 1
+        
+        elif 'cid' in keys and len(keys) == 8:
+            num_valid_passports += 1
+
+print(num_valid_passports)
+    
