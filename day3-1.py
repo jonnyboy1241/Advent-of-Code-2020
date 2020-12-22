@@ -54,3 +54,25 @@ In this example, traversing the map using this slope would cause you to encounte
 
 Starting at the top-left corner of your map and following a slope of right 3 and down 1, how many trees would you encounter?
 '''
+
+tree_map = []
+
+with open('data/day3.txt', 'r') as file:
+    while True:
+        line = file.readline().strip('\n')
+        if not line:
+            break
+        tree_map.append(line)
+
+map_length = len(tree_map[0])
+
+num_trees = 0
+start_pos = 0
+
+for row in tree_map:
+    if row[start_pos % map_length] == '#':
+        num_trees += 1
+    
+    start_pos += 3
+
+print(num_trees)
