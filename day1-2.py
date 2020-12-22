@@ -6,3 +6,26 @@ Using the above example again, the three entries that sum to 2020 are 979, 366, 
 
 In your expense report, what is the product of the three entries that sum to 2020?
 '''
+
+import sys
+
+nums = []
+
+# Read the input file
+with open('data/day1.txt', 'r') as file:
+    while True:
+        line = file.readline()
+        if not line:
+            break
+
+        nums.append(int(line))
+
+# Dynamic programming is probably more efficient for the subset sum problem, but, this works quickly enough
+for num1 in nums:
+    for num2 in nums:
+        for num3 in nums:
+            if num1 + num2 + num3 == 2020:
+                print(num1 * num2 * num3)
+                sys.exit(0)
+
+print('DONE!')
